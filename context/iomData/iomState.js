@@ -285,7 +285,6 @@ const IOMState = (props) => {
             throw error;
         }
       ).catch(error => {
-        //console.log('error en login',error)
         axios.get(config.apiDrupalTokenURL).then(
           response => {
             const headers = {
@@ -293,8 +292,6 @@ const IOMState = (props) => {
               'Accept': 'application/json',
               'X-Csrf-Token': response.data
             }
-    
-            console.log('dataV',JSON.stringify(dataV));
             axios.post(config.apiDrupalCommentURL,
             dataV, 
             {headers: headers}).then(

@@ -44,20 +44,26 @@ const CardItemDirectoryDetail = (props) => {
               <View style={styles.textWrap}>
                 <Text style={styles.textsubTitle1}>{val.NombreOrganizacion}</Text>
               </View>
-              <View style={styles.form1}>
-                <Image
-                  source={require("../../../resources/images/phone.png")}
-                  style={styles.image2}
-                />
-                <Text style={styles.textTitle2}>{val.telefono_.length>0?val.telefono_[0].value:''}</Text>
-              </View>
-              <View style={styles.form1}>
-                <Image
-                  source={require("../../../resources/images/riTimeFill.png")}
-                  style={styles.image2}
-                />
-                <Text style={styles.textTitle2}>{val.horario}</Text>
-              </View>
+
+              {val.telefono_.length > 0  && (
+                <View style={styles.form1}>
+                  <Image
+                    source={require("../../../resources/images/phone.png")}
+                    style={styles.image2}
+                  />
+                  <Text style={styles.textTitle2}>{val.telefono_.length>0?val.telefono_[0].value:''}</Text>
+                </View>
+              )}
+              {val.horario.length > 0  && (
+                <View style={styles.form1}>
+                  <Image
+                    source={require("../../../resources/images/riTimeFill.png")}
+                    style={styles.image2}
+                  />
+                  <Text style={styles.textTitle2}>{val.horario}</Text>
+                
+                </View>
+              )}
             </View>
           })}
         </View>

@@ -1,7 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from "react";
+import React, {useContext} from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { metrics } from "../../../utilities/Metrics";
+import AuthContext from "../../../../context/auth/authContext";
+import analytics from '@react-native-firebase/analytics';
 
 const CardItemLink = (props) => {
   const {
@@ -14,23 +16,27 @@ const CardItemLink = (props) => {
   } = props || {};
 
   const onPressOpen = () => {
-    props.navigation.navigate("LinkItem", { resume, date, content, image, links });
+    analytics().logSelectContent({
+            content_type: 'news_opened',
+            item_id: title,
+          })
+    props.navigation.navigate("LinkItem", { title, resume, date, content, image, links });
   };
+  const { config } = useContext(AuthContext);
   const regex = /(<([^>]+)>)/gi;
   const result = resume.replace(regex, "");
   let _resume = result.substring(0, 60);
-
   return (
     <TouchableOpacity onPress={onPressOpen}>
       <View style={styles.container}>
         <Image
           style={styles.containeImage}
           source={{
-            uri: `https://dev-mapeo.us.tempcloudsite.com${image}`,
+            uri: config.photoBaseURL+image,
           }}
         />
         <View style={styles.containeImageText}>
-          <Text style={styles.titleSection}>{_resume + "..."}</Text>
+          <Text style={styles.titleSection}>{title + "..."}</Text>
 {/*           <View style={styles.containerDate}>
             <Image source={require("../../../resources/images/calendar.png")} />
             <Text style={styles.titleDate}>{date}</Text>

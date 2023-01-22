@@ -15,7 +15,6 @@ const DirectoryItem = (props) => {
   const { otherParam = "" } = props.navigation.state.params || {};
   const awesomeChildListRenderItem = (item) => {
     if(item.item.tipo_de_linea_id != undefined && dataDirectoryService.some(val => val.id === item.item.tipo_de_linea_id)){
-      //console.log('*',item.item.tipo_de_linea_id,dataItem.LineasTelefonicas.filter(itemLine => itemLine.tipo_de_linea_id.includes(item.item.tipo_de_linea_id)));
       return (
         <CardItemDirectoryDetail
           {...props}

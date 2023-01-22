@@ -37,10 +37,7 @@ const FilterSetting = (props) => {
   const [municipio, setMunicipio] = useState("");
   const [departamento, setDepartamento] = useState("");
   const [selectedService, setSelectedService] = useState([]);
-  
   const [arregloServicios, setArregloServicios] = useState([]);
-
-  //dataPoint.map(d => (console.log('Nombre_punto:',d.Nombre_punto,'Departamento'))) 
 
   useEffect(() => {
     getDataMapeoService();

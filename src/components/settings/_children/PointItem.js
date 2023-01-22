@@ -30,7 +30,6 @@ const PointItem = (props) => {
   let { id = "", latitude = "", longitude = "", uri = "" } = props.navigation.state.params || {};
   latitude = isNaN(latitude) ? 0 : latitude;
   longitude = isNaN(longitude) ? 0 : longitude;
-  //console.log('l_l',latitude,longitude);
 
   const {
     Nombre_punto = "",

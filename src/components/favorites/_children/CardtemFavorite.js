@@ -2,15 +2,18 @@
 import React, { useEffect, useContext } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import IOMContext from "../../../../context/iomData/iomContext";
+import AuthContext from "../../../../context/auth/authContext";
 import { SvgCssUri } from 'react-native-svg';
 import _ from 'lodash';
 
 const CardItemFavorite = (props) => {
   const { id = "" } = props || {};
   const { dataPoint, dataMapeoService, getDataPoint, dataMapeoState, getDataMapeoService } = useContext(IOMContext);
+  const { config } = useContext(AuthContext);
+
   useEffect(() => {
     if(dataPoint && dataPoint.length < 1){
-      getDataPoint();
+      getDataPoint(config.activeStates, config.activeVisible, config.activeType);
     }
     if(dataMapeoService && dataMapeoService.length < 1){
       getDataMapeoService();
@@ -26,12 +29,14 @@ const CardItemFavorite = (props) => {
     } = dataPoint !== null ? dataPoint.find((item) => item.ID == id) : {};*/
   const fav = dataPoint !== null ? dataPoint.find((item) => item.ID == id) : {};
   const onPressOpenPoint = (id) => {
-    let coor = fav.Coordenadas.split(",");
-    let latitude = parseFloat(coor[0]);
-    let longitude = parseFloat(coor[1]);
-    let icon = (dataMapeoState.find((state) => state.id_estado == fav.Estado_id));
-    let uri = icon?.img_estado_b64;
-    props.navigation.navigate("PointItem", { id, latitude, longitude, uri });
+    if (fav != undefined) {
+      let coor = fav.Coordenadas.split(",");
+      let latitude = parseFloat(coor[0]);
+      let longitude = parseFloat(coor[1]);
+      let icon = (dataMapeoState.find((state) => state.id_estado == fav.Estado_id));
+      let uri = icon?.img_estado_b64;
+      props.navigation.navigate("PointItem", { id, latitude, longitude, uri });
+    }
   };
 
   const unique = [...new Set(fav?.Servicios.map(item => item.Servicio_id))];
@@ -78,7 +83,7 @@ const CardItemFavorite = (props) => {
   return fav?.Nombre_punto !== "" ? (
     <TouchableOpacity key={id} style={styles.container} onPress={() => onPressOpenPoint(id)}>
       <View style={styles.containerFormTitle}>
-        <Text style={styles.textTitle}>{_Nombre_punto + "..."}</Text>
+        <Text style={styles.textTitle}>{(_Nombre_punto==undefined?'Punto no encontrado':_Nombre_punto) + "..."}</Text>
       </View>
       <View style={styles.containerForm}>{_.map(services,(val) => {
         return val.svg

@@ -6,7 +6,16 @@ import HeaderHome from "./_children/HeaderHome";
 import AuthContext from "../../../context/auth/authContext";
 
 const Main = (props) => {
-  const { config } = useContext(AuthContext);
+  const { navigation } = props;
+  const { user, signOut, config } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!config.anonymousAuth && user && !user.email) {
+      signOut();
+      navigation.navigate("Registre");
+    }
+
+  }, []);
 
   return (
     <View style={styles.container}>

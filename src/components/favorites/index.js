@@ -15,7 +15,7 @@ const { SlideInMenu } = renderers;
 
 const Favorites = (props) => {
 
-  var {dataFavorite, getDataFavorite, deleteFavorite } = useContext(IOMContext);
+  var {dataPoint,getDataPoint,dataMapeoService,getDataMapeoService,dataFavorite, getDataFavorite, deleteFavorite } = useContext(IOMContext);
 
   useEffect(() => {
     getDataFavorite();
