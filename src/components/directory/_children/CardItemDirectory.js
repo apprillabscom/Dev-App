@@ -2,10 +2,15 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, Image, View } from "react-native";
 import { metrics } from "../../../utilities/Metrics";
+import analytics from '@react-native-firebase/analytics';
 
 const CardItemDirectory = (props) => {
   const { title = "", icon = "" } = props || {};
   const onPressOpen = () => {
+    analytics().logSelectContent({
+      content_type: 'directory_opened',
+      item_id: title,
+    })
     props.navigation.navigate("DirectoryItem", {
       otherParam: title,
     });

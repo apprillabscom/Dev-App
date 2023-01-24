@@ -7,6 +7,7 @@ import Geolocation from "@react-native-community/geolocation";
 import IOMContext from "../../../context/iomData/iomContext";
 import AuthContext from "../../../context/auth/authContext";
 import Icon from 'react-native-vector-icons/Ionicons';
+import analytics from '@react-native-firebase/analytics';
 
 const Settings = (props) => {
   const [position, setPosition] = useState({
@@ -87,6 +88,10 @@ const Settings = (props) => {
   };
 
   const onPressOpenPoint = (id, latitude, longitude, uri) => {
+    analytics().logSelectContent({
+      content_type: 'point_opened',
+      item_id: id,
+    })
     props.navigation.navigate("PointItem", { id, latitude, longitude, uri });
   };
 
