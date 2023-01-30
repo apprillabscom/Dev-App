@@ -3,11 +3,12 @@
 buildscript {
     ext {
         buildToolsVersion = "29.0.3"
-        minSdkVersion = 21
+        minSdkVersion = 31
         compileSdkVersion = 29
-        targetSdkVersion = 30
+        targetSdkVersion = 31
         ndkVersion = "20.1.5948944"
         androidXCore = "1.0.2"
+        kotlinVersion = '1.6.0'
     }
     repositories {
         google()
@@ -36,5 +37,11 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            force 'com.facebook.react:react-native:0.64.1'
+        }
     }
 }
