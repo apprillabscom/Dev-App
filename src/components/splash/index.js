@@ -74,7 +74,7 @@ const Splash = (props) => {
 
   return (
       <ImageBackground
-        source={require("../../resources/images/Splash.png")}
+        source={require("../../resources/images/Splash.png")} resizeMode="cover"
         style={styles.logo}
       />
   );
